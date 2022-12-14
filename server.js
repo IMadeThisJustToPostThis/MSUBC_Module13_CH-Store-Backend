@@ -1,3 +1,8 @@
+//TODO:
+// make more comments explaining stuff
+// change route return variables to more appropriate names based on the response
+// add readme
+// make video
 const express = require('express');
 const routes = require('./routes');
 // import sequelize connection

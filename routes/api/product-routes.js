@@ -60,20 +60,20 @@ router.post('/', (req, res) => {
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
-      if (req.body.tagIds.length) {
-        const productTagIdArr = req.body.tagIds.map((tag_id) => {
+      if (req.body.tagIds.length) { // if the length of tagIds is not zero, aka if any product tags were inputted
+        const productTagIdArr = req.body.tagIds.map((tag_id) => { // map the products ids to an array
           return {
-            product_id: product.id,
-            tag_id,
+            product_id: product.id, // map the products id to the productTag table
+            tag_id, // map the tag id to the productTag table
           };
         });
-        return ProductTag.bulkCreate(productTagIdArr);
+        return ProductTag.bulkCreate(productTagIdArr); // create a new product tag table inside of tags, with our mapped array
       }
-      // if no product tags, just respond
+      // if no product tags were inputted, just respond
       res.status(200).json(product);
     })
-    .then((productTagIds) => res.status(200).json(productTagIds))
-    .catch((err) => {
+    .then((productTagIds) => res.status(200).json(productTagIds)) // if product tags were inputted, return tagids with a successful status
+    .catch((err) => {                                             // (because if product tags exist the return statement will skip over the status.json)
       console.log(err);
       res.status(400).json(err);
     });
@@ -137,3 +137,45 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
+
+/*
+POST AND PUT ROUTE TAG EXAMPLE
+"tags": [
+			{
+				"id": 1,
+				"tag_name": "rock music",
+				"product_tag": {
+					"id": 17,
+					"product_id": 7,
+					"tag_id": 1
+				}
+			},
+			{
+				"id": 2,
+				"tag_name": "pop music",
+				"product_tag": {
+					"id": 18,
+					"product_id": 7,
+					"tag_id": 2
+				}
+			},
+			{
+				"id": 3,
+				"tag_name": "blue",
+				"product_tag": {
+					"id": 19,
+					"product_id": 7,
+					"tag_id": 3
+				}
+			},
+			{
+				"id": 4,
+				"tag_name": "red",
+				"product_tag": {
+					"id": 20,
+					"product_id": 7,
+					"tag_id": 4
+				}
+			}
+		]
+*/
