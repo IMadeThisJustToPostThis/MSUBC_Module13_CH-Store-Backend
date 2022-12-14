@@ -3,7 +3,7 @@
 // change route return variables to more appropriate names based on the response
 // add readme
 // make video
-// push to heroku and git
+// push to heroku and github
 const express = require('express');
 const routes = require('./routes');
 // import sequelize connection
