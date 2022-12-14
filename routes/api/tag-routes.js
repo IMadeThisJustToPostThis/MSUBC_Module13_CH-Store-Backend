@@ -29,8 +29,10 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     },
     include: [
-      Product,
-      ProductTag
+      {
+        model: Product,
+        through: ProductTag
+      },
     ]
   }).then((tagData) => {
     res.status(200).json(tagData);
