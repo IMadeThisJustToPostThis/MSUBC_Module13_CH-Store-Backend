@@ -11,8 +11,10 @@ router.get('/', (req, res) => {
   Product.findAll({
     include: [
       Category,
-      Tag,
-      ProductTag
+      {
+        model: Tag,
+        through: ProductTag
+      }
     ]
   }).then((productData) => {
     res.status(200).json(productData);
