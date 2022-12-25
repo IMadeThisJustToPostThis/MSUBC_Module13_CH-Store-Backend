@@ -1,10 +1,6 @@
 //TODO:
 // make more comments explaining stuff
 // change route return variables to more appropriate names based on the response
-// add readme
-// make video
-// change package name
-// push to heroku and github
 const express = require('express');
 const sequelize = require('./config/connection');
 const routes = require('./routes');
